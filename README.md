@@ -65,6 +65,7 @@ Die URLs der nachfolgenden Endpoints kannst du selbst wählen.
 - Der Pfleger soll alle Tiere sehen, die er selbst zugeordnet ist.
 - Weiters kann er Elemente von Tieren updaten, über die ID.
 - Tiere werden wieder im model Ordner entsprechend als Objekt dargestellt.
+- Es können beliebig viele sinnvolle Klassen hinzugefügt werden.
 
 Wie oben beschrieben sollen die Endpoints selbst zu wählen, sie müssen aber mit Swagger dokumentiert sein.
 
