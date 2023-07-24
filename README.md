@@ -36,14 +36,14 @@ SHOW GRANTS FOR 'username'@'localhost';
 Nicht vergessen, den Username entsprechend anzupassen.
 
 - Füge Daten in deine Datenbank ein, damit du später Abfragen testen kannst.
-- Stelle eine Verbindung mit Rider zu deiner DB her, um Abfragen entsprechend testen zu können. Alternativ: verwende einen
-  beliebigen anderen Client.
+- Stelle eine Verbindung mit Rider zu deiner DB her, um Abfragen entsprechend testen zu können. Alternativ: verwende
+  einen beliebigen anderen Client.
 
 ## Backend
 
 Als Erstes stelle eine Datenbankverbindung her. Verwende dafür die Klasse `DBConnection`. Wiederverwende diese Verbindung.
 
-Die URLs der nachfolgenden Endpoints kannst du selbst wählen.
+Die URLs der nachfolgenden Endpoints kannst du selbst wählen. Für den Zoobesucher, den Kassierer und den Tierpfleger gibt es eigene Controller Klassen.
 
 ### Zoobesucher
 
