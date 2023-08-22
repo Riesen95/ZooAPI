@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="model\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Microsoft.OpenApi" Version="1.6.5" />
       <PackageReference Include="MySql.Data" Version="8.1.0" />
       <PackageReference Include="MySqlConnector" Version="2.2.7" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="frontend\frontend.txt" />
     </ItemGroup>
 
 </Project>

@@ -27,7 +27,7 @@ Betrieb der API.
 Verwende die im Unterricht erstellte Zoodatenbank.
 
 - Stelle eine SSH Verbindung her und füge einen Screenshot des unten angebenden ausgeführten Befehls ein.
-- Verwende für die Screenshots den `img` Ordner.
+- Verwende für die Screenshots den `img` Ordner. **_ERLEDIGT_**
 
 ~~~sql
 SHOW GRANTS FOR 'username'@'localhost';
@@ -36,14 +36,14 @@ SHOW GRANTS FOR 'username'@'localhost';
 Nicht vergessen, den Username entsprechend anzupassen.
 
 - Füge Daten in deine Datenbank ein, damit du später Abfragen testen kannst.
-- Stelle eine Verbindung mit Rider zu deiner DB her, um Abfragen entsprechend testen zu können. Alternativ: verwende einen
-  beliebigen anderen Client.
+- Stelle eine Verbindung mit Rider zu deiner DB her, um Abfragen entsprechend testen zu können. Alternativ: verwende
+  einen beliebigen anderen Client.
 
 ## Backend
 
 Als Erstes stelle eine Datenbankverbindung her. Verwende dafür die Klasse `DBConnection`. Wiederverwende diese Verbindung.
 
-Die URLs der nachfolgenden Endpoints kannst du selbst wählen.
+Die URLs der nachfolgenden Endpoints kannst du selbst wählen. Für den Zoobesucher, den Kassierer und den Tierpfleger gibt es eigene Controller Klassen.
 
 ### Zoobesucher
 
@@ -65,6 +65,7 @@ Die URLs der nachfolgenden Endpoints kannst du selbst wählen.
 - Der Pfleger soll alle Tiere sehen, die er selbst zugeordnet ist.
 - Weiters kann er Elemente von Tieren updaten, über die ID.
 - Tiere werden wieder im model Ordner entsprechend als Objekt dargestellt.
+- Es können beliebig viele sinnvolle Klassen hinzugefügt werden.
 
 Wie oben beschrieben sollen die Endpoints selbst zu wählen, sie müssen aber mit Swagger dokumentiert sein.
 

@@ -1,0 +1,276 @@
+Index: Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>var builder = WebApplication.CreateBuilder(args);\r\nvar app = builder.Build();\r\n\r\napp.MapGet(\"/\", () => \"Hello World!\");\r\n\r\napp.Run();
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Program.cs b/Program.cs
+--- a/Program.cs	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ b/Program.cs	(date 1692562086522)
+@@ -1,6 +1,104 @@
+-var builder = WebApplication.CreateBuilder(args);
+-var app = builder.Build();
+-
+-app.MapGet("/", () => "Hello World!");
+-
+-app.Run();
+\ No newline at end of file
++using System.Text.Json; 
++ 
++namespace ZooAPI 
++{ 
++    using ZooAPI.Controller; 
++    using ZooAPI.Model; 
++    using ZooAPI.Service; 
++    using Microsoft.AspNetCore.Builder; 
++    using Microsoft.AspNetCore.Http; 
++    using Microsoft.Extensions.DependencyInjection; 
++    using Microsoft.OpenApi.Models; 
++ 
++    public class Program 
++    { 
++        public static void Main(string[] args) 
++        { 
++            var myAllowSpecificOrigins = "_myAllowSpecificOrigins"; 
++            var builder = WebApplication.CreateBuilder(args); 
++ 
++            // CORS aktivieren 
++            builder.Services.AddCors(options => 
++            { 
++                options.AddPolicy(name: myAllowSpecificOrigins, 
++                    policyBuilder => 
++                    { 
++                        policyBuilder.AllowAnyOrigin() 
++                            .AllowAnyHeader() 
++                            .AllowAnyMethod(); 
++                    }); 
++            }); 
++ 
++            // Dienste konfigurieren 
++            ConfigureServices(builder); 
++ 
++            // Anwendung erstellen 
++            var app = builder.Build(); 
++ 
++            // CORS aktivieren 
++            app.UseCors(myAllowSpecificOrigins); 
++ 
++            // Anwendung konfigurieren 
++            Configure(app); 
++ 
++            app.Run(); 
++        } 
++ 
++        private static void ConfigureServices(WebApplicationBuilder builder) 
++        { 
++            // Dienste für API-Erkundung und Swagger hinzufügen 
++            builder.Services.AddEndpointsApiExplorer(); 
++            builder.Services.AddSwaggerGen(option => 
++            { 
++                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Zoo API", Version = "v1" }); 
++            }); 
++ 
++            // Datenbankverbindung 
++            string connectionString = builder.Configuration.GetConnectionString("ZooDb") ?? string.Empty; 
++ 
++            // Dienste registrieren 
++            builder.Services.AddScoped(_ => new DBConnection(connectionString, builder.Configuration)); 
++            builder.Services.AddScoped<ZoobesucherService>(); 
++            builder.Services.AddScoped<KassiererService>(); 
++            builder.Services.AddScoped<TierpflegerService>(); 
++ 
++            // Controller registrieren 
++            builder.Services.AddControllers(); 
++            builder.Services.AddScoped<ZoobesucherController>(); 
++            builder.Services.AddScoped<KassiererController>(); 
++            builder.Services.AddScoped<TierpflegerController>(); 
++        } 
++ 
++        private static void Configure(WebApplication app) 
++        { 
++            using var scope = app.Services.CreateScope(); 
++ 
++            KassiererService kassiererService; 
++            kassiererService = scope.ServiceProvider.GetRequiredService<KassiererService>(); 
++ 
++            ZoobesucherService zoobesucherService; 
++            zoobesucherService = scope.ServiceProvider.GetRequiredService<ZoobesucherService>(); 
++ 
++            TierpflegerService tierpflegerService; 
++            tierpflegerService = scope.ServiceProvider.GetRequiredService<TierpflegerService>(); 
++ 
++            // Swagger einrichten 
++            app.UseSwagger(); 
++            app.UseSwaggerUI(option => 
++            { 
++                option.SwaggerEndpoint("/swagger/v1/swagger.json", "zoo"); 
++                option.RoutePrefix = string.Empty; 
++            }); 
++ 
++            // Kassierer-Endpunkte 
++            app.MapControllers(); 
++            app.MapControllerRoute("kassierer", "api/kassierer/{controller=Home}/{action=Index}/{id?}"); //
++ 
++            // Tierpfleger-Endpunkte 
++            app.MapControllerRoute("tierpfleger", "api/tierpfleger/{controller=Home}/{action=Index}/{id?}"); 
++ 
++            // Zoobesucher-Endpunkte 
++            app.MapControllerRoute("zoobesucher", "api/zoobesucher/{controller=Home}/{action=Index}/{id?}"); 
++        } 
++    } 
++} 
+\ No newline at end of file
+Index: frontend/frontend.txt
+===================================================================
+diff --git a/frontend/frontend.txt b/frontend/frontend.txt
+deleted file mode 100644
+--- a/frontend/frontend.txt	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ /dev/null	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
+@@ -1,2 +0,0 @@
+-Bitte Frontend in diesem Ordner programmieren. Das ist notwending für die Abgabe.
+-Rider unterstützt bereits out-of-the-box JavaScript und React https://www.jetbrains.com/help/rider/react.html#react_code_completion_component_properties.
+\ No newline at end of file
+Index: appsettings.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"Logging\": {\r\n    \"LogLevel\": {\r\n      \"Default\": \"Information\",\r\n      \"Microsoft.AspNetCore\": \"Warning\"\r\n    }\r\n  },\r\n  \"AllowedHosts\": \"*\"\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/appsettings.json b/appsettings.json
+--- a/appsettings.json	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ b/appsettings.json	(date 1692562086516)
+@@ -5,5 +5,13 @@
+       "Microsoft.AspNetCore": "Warning"
+     }
+   },
++  "ConnectionStrings": {
++    "ZooDb": "Server=192.168.43.128;Database=Zoo;UserID=mariadb;Password=mariadb;SslMode=none;"
++  },
++  "TicketPrices": {
++    "Kinder": 5.00,
++    "Erwachsener": 10.00,
++    "Senioren": 7
++  },
+   "AllowedHosts": "*"
+-}
++}
+\ No newline at end of file
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>bin/\r\nobj/\r\n/packages/\r\nriderModule.iml\r\n/_ReSharper.Caches/
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ b/.gitignore	(date 1692562086545)
+@@ -2,4 +2,4 @@
+ obj/
+ /packages/
+ riderModule.iml
+-/_ReSharper.Caches/
+\ No newline at end of file
++/_ReSharper.Caches/
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\n# Projektaufgabe Zoo RESTful API\r\n\r\n**Eine erfolgreiche Absolvierung dieser Aufgabe ist Voraussetzung für ein Abschlussprojekt.**\r\n\r\nZiel dieses Projekts ist eine komplette Anwendung mit Frontend, Backend, inklusive Datenbankanbindung.\r\n\r\nDrei unterschiedliche Funktionen müssen implementiert werden:\r\n\r\n- Informationen für Besucher\r\n- Ticketkauf aus Sicht des Kassierers und Gesamtansicht der Ticketverkäufe\r\n- Informationen für Tierpfleger\r\n\r\nWie bereits im Unterricht wird eine [minimal API](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0) entwickelt.\r\n\r\n## Datenbank\r\n\r\nErstelle für diese Anwendung einen Benutzer, der nur die notwendigen Rechte hat, die notwendig sind für den\r\nBetrieb der API.\r\n\r\n- Tiere müssen lesbar sein und Updates müssen ermöglicht werden.\r\n- Für den Ticketkauf werden Schreib- und Leserechte benötigt.\r\n  - Leserechte braucht für die Auskunft der verkauften Tickets.\r\n\r\n### Benutzer erstellen\r\n\r\nVerwende die im Unterricht erstellte Zoodatenbank.\r\n\r\n- Stelle eine SSH Verbindung her und füge einen Screenshot des unten angebenden ausgeführten Befehls ein.\r\n- Verwende für die Screenshots den `img` Ordner.\r\n\r\n~~~sql\r\nSHOW GRANTS FOR 'username'@'localhost';\r\n~~~\r\n\r\nNicht vergessen, den Username entsprechend anzupassen.\r\n\r\n- Füge Daten in deine Datenbank ein, damit du später Abfragen testen kannst.\r\n- Stelle eine Verbindung mit Rider zu deiner DB her, um Abfragen entsprechend testen zu können. Alternativ: verwende\r\n  einen beliebigen anderen Client.\r\n\r\n## Backend\r\n\r\nAls Erstes stelle eine Datenbankverbindung her. Verwende dafür die Klasse `DBConnection`. Wiederverwende diese Verbindung.\r\n\r\nDie URLs der nachfolgenden Endpoints kannst du selbst wählen. Für den Zoobesucher, den Kassierer und den Tierpfleger gibt es eigene Controller Klassen.\r\n\r\n### Zoobesucher\r\n\r\n- Alle Tiere sollen als Datenstruktur zur Verfügung gestellt werden.\r\n- Mit dem Namen als Parameter soll nach einem Tier gesucht werden können. Je nach Implementierung wird ein\r\n  einzelnes Tier als JSON, oder mehrere als Datenstruktur zurückgegeben.\r\n\r\n### Kassierer\r\n\r\n- Ein Kassier bedient ein Kassensystem und verkauft Tickets. Ein verkauftes Ticket wird in die Datenbank mit einem\r\n  [Zeitstempel](https://mariadb.com/kb/en/timestamp/) gespeichert. Du wirst hier deine Tabelle anpassen müssen.\r\n- Ein Ticket wird als Objekt im model Ordner modelliert. Felder müssen zumindest der Ticketpreis und das\r\n  [Verkaufsdatum](https://dev.mysql.com/doc/dev/connector-net/6.10/html/T_MySql_Data_Types_MySqlDateTime.htm) sein.\r\n- Eine weitere Schnittstelle informiert über die Gesamtverkäufe aller Tickets.\r\n- Alle Tickets, die an einem bestimmten Tag verkauft wurden, inklusive Summe werden zur Verfügung gestellt.\r\n\r\n### Tierpfleger\r\n\r\n- Der Pfleger soll alle Tiere sehen, die er selbst zugeordnet ist.\r\n- Weiters kann er Elemente von Tieren updaten, über die ID.\r\n- Tiere werden wieder im model Ordner entsprechend als Objekt dargestellt.\r\n- Es können beliebig viele sinnvolle Klassen hinzugefügt werden.\r\n\r\nWie oben beschrieben sollen die Endpoints selbst zu wählen, sie müssen aber mit Swagger dokumentiert sein.\r\n\r\n### Error Handling\r\n\r\nEs muss Errorhandling geben. Bei Fehler setzte den entsprechenden [HTTP Statuscode](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). Das funktioniert sehr einfach, wenn du wie im Beispiel ein Result zurückgibst.\r\n\r\n## Frontend\r\n\r\nSetzte ein Frontend mit React um. Es muss eine Startseite zum Auswählen der Services geben. Für den Zoobesucher,\r\nden Kassierer und den Tierpfleger gibt es eine eigene View geben. Folgender Stack wird vorgeschlagen:\r\n\r\n- vite\r\n- react\r\n- react-router\r\n- MaterialUI\r\n\r\nWobei nur react verpflichtend einzusetzen ist. Das Frontend darf gerne gut aussehen :smiley:\r\n\r\n**Setzte die Webiste im frontend Ordner um**. Das ist wichtig, um das Projekt abgeben zu können.\r\n\r\n## Zusätzliche Informationen\r\n\r\nAlle Dependencies, die benötigt werden, sind bereits eingebunden.\r\n\r\n![Dependencies](./img/dep.png)\r\n\r\nDer Json Serializier wurde durch die Implementierung von ASP.NET Core ersetzt. Darum muss auch nicht mehr der Content\r\nType gesetzt. Die MySql Datentypen sind auch schon enthalten.\r\n\r\n> Achte auf sauberen Code und **Do not repeat yourself**.\r\n\r\n- Es sind natürlich bei der Abgabe mehrere Review-Zyklen erlaubt. Du kannst auch öfter commiten und pushen, solange du\r\n  keinen Pull Request stellst, wird es nicht reviewd. Achte aber auf saubere Pull Request und ordentliche Commit Messages.\r\n- Fragen können jederzeit auf Teams gestellt werden. Bei Bedarf biete ich eine online Q/A Session an.\r\n- Verwende statische Codeanalyse.\r\n- Erledige die Aufgabe in Teilen und nicht am letzten Tag alles auf einmal.\r\n- Vergiss nicht auf das aktualisierte Beispielprojekt.\r\n\r\n## Ausführen\r\n\r\nNicht vergessen, HTTP auszuwählen.\r\n\r\n![Run project](img/run.png)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ b/README.md	(date 1692562086553)
+@@ -27,7 +27,7 @@
+ Verwende die im Unterricht erstellte Zoodatenbank.
+ 
+ - Stelle eine SSH Verbindung her und füge einen Screenshot des unten angebenden ausgeführten Befehls ein.
+-- Verwende für die Screenshots den `img` Ordner.
++- Verwende für die Screenshots den `img` Ordner. **_ERLEDIGT_**
+ 
+ ~~~sql
+ SHOW GRANTS FOR 'username'@'localhost';
+Index: ZooAPI.csproj
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><Project Sdk=\"Microsoft.NET.Sdk.Web\">\r\n\r\n    <PropertyGroup>\r\n        <TargetFramework>net7.0</TargetFramework>\r\n        <Nullable>enable</Nullable>\r\n        <ImplicitUsings>enable</ImplicitUsings>\r\n    </PropertyGroup>\r\n\r\n    <ItemGroup>\r\n      <PackageReference Include=\"Microsoft.OpenApi\" Version=\"1.6.5\" />\r\n      <PackageReference Include=\"MySql.Data\" Version=\"8.1.0\" />\r\n      <PackageReference Include=\"MySqlConnector\" Version=\"2.2.7\" />\r\n      <PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"6.5.0\" />\r\n    </ItemGroup>\r\n\r\n</Project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ZooAPI.csproj b/ZooAPI.csproj
+--- a/ZooAPI.csproj	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ b/ZooAPI.csproj	(date 1692562086662)
+@@ -13,4 +13,8 @@
+       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+     </ItemGroup>
+ 
++    <ItemGroup>
++      <None Remove="frontend\frontend.txt" />
++    </ItemGroup>
++
+ </Project>
+Index: controller/DBConnection.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace ZooAPI.controller;\r\n\r\npublic class DBConnection\r\n{\r\n    /*\r\n     * Implement and reuse database connection here\r\n     */\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/controller/DBConnection.cs b/controller/DBConnection.cs
+--- a/controller/DBConnection.cs	(revision 06f89db16d8ca4a0cd1682f17e7dd747fe2dff40)
++++ b/controller/DBConnection.cs	(date 1692562086538)
+@@ -1,8 +1,44 @@
+-namespace ZooAPI.controller;
++using System.Data;
++using MySqlConnector;
+ 
+-public class DBConnection
+-{
+-    /*
+-     * Implement and reuse database connection here
+-     */
++namespace ZooAPI.Controller
++{
++    // Datenbankverbindungsklasse
++    public class DBConnection
++    {
++        private readonly string _connectionString; // Verbindungszeichenfolge zur Datenbank
++
++        // Konstruktor mit Konfiguration
++        public DBConnection(IConfiguration configuration)
++        {
++            _connectionString =
++                configuration.GetConnectionString("ZooDb"); // Verbindungszeichenfolge aus Konfiguration holen
++        }
++
++        // Überladener Konstruktor mit Verbindungszeichenfolge und Konfiguration
++        public DBConnection(string connectionString, IConfiguration configuration)
++        {
++            _connectionString = connectionString;
++        }
++
++        // Asynchrone Methode zur Herstellung einer sicheren Datenbankverbindung
++        public async Task<MySqlConnection> GetConnectionAsync()
++        {
++            if (string.IsNullOrWhiteSpace(_connectionString))
++            {
++                throw new Exception($"Verbindungszeichenfolge ist nicht definiert" + $".");
++            }
++
++            var conn = new MySqlConnection(_connectionString); // Neue Verbindung erstellen
++
++            await conn.OpenAsync(); // Verbindung asynchron öffnen
++
++            if (conn.State != ConnectionState.Open)
++            {
++                throw new Exception("Verbindung konnte nicht geöffnet werden.");
++            }
++
++            return conn; // Verbindung zurückgeben
++        }
++    }
+ }
+\ No newline at end of file
