@@ -10,45 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bed1cb-d8f4-476f-9d30-ea5ce54c6b7f" name="Changes" comment="In Bearbeitung (PICS)&#10;&#10;ExceptionHandling fehlt">
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_icons-material_Menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_icons-material_Menu.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_icons-material_Search.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_icons-material_Search.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_material.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_material.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_material_styles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_material_styles.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_system.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/@mui_system.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/_metadata.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-2FATVHAI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-2FATVHAI.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-3J5A5ONA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-3J5A5ONA.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-DWLRNBOJ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-DWLRNBOJ.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-IGAI2UTE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-IGAI2UTE.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-KBMNADEA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-KBMNADEA.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-OATYQ6QV.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-OATYQ6QV.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-W35RGOJH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/chunk-W35RGOJH.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/react-dom_client.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/react-dom_client.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/react-router-dom.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/react-router-dom.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/react.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.vite/deps/react.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/Adler.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/Fisch.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/Giraffe.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/Löwe.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/Pinguin.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/zoo-background.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZooAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ZooAPI.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_08_2023_22_08__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_08_2023_22_08__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZooAPI/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +76,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Rebasing Progress",
+    "git-widget-placeholder": "Progress",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -221,6 +187,7 @@
       <workItem from="1692438437876" duration="3861000" />
       <workItem from="1692442777580" duration="276000" />
       <workItem from="1692559225743" duration="6476000" />
+      <workItem from="1692727983119" duration="32000" />
     </task>
     <task id="LOCAL-00001" summary="Step 1:&#10;User erstellt und Rechte zugewiesen&#10;Datenbank erstellt und befüllt&#10;Verbindung zur Datenbank hergestellt&#10;Besucher erstellt?">
       <option name="closed" value="true" />
